@@ -1,3 +1,3 @@
 apply plugin: 'java'
 apply plugin: 'application'
-mainClassName = 'Distance'
+mainClassName = 'ru.isdev.distance.Distance'
