@@ -15,7 +15,7 @@ public class GroupCreationTests {
         wd = new FirefoxDriver();
         wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
-        wd.get("http://localhost/addressbook/index.php");
+        wd.get("http://localhost/addressbook/");
         login("admin", "secret");
 
     }
@@ -35,6 +35,8 @@ public class GroupCreationTests {
         wd.quit();
     }
 
+
+
     private void login(String username, String password) {
         wd.findElement(By.name("user")).click();
         wd.findElement(By.name("user")).clear();
@@ -47,6 +49,8 @@ public class GroupCreationTests {
     private void logout() {
         wd.findElement(By.linkText("Logout")).click();
     }
+
+
 
     private void returnToTheGroupPage() {
         wd.findElement(By.linkText("group page")).click();
@@ -73,6 +77,8 @@ public class GroupCreationTests {
     private void goToTheGroupPage() {
         wd.findElement(By.linkText("groups")).click();
     }
+
+
 
     private boolean isElementPresent(By by) {
         try {
