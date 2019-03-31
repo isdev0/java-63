@@ -1,4 +1,4 @@
-package ru.isdev.addressbook;
+package ru.isdev.addressbook.model;
 
 public class ContactData {
     private final String fname;

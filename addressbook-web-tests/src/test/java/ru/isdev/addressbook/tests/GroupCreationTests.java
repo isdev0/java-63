@@ -1,0 +1,18 @@
+package ru.isdev.addressbook.tests;
+
+import org.testng.annotations.*;
+import ru.isdev.addressbook.model.GroupData;
+
+public class GroupCreationTests extends TestBase {
+
+    @Test
+    public void testGroupCreation() throws Exception {
+        app.goToTheGroupPage();
+        app.initGroupCreation();
+        app.fillGroupForm(new GroupData("TestGroup1_name", "TestGroup1_header", "TestGroup1_footer"));
+        app.submitGroupCreation();
+        app.returnToTheGroupPage();
+    }
+
+
+}

@@ -1,15 +1,16 @@
-package ru.isdev.addressbook;
+package ru.isdev.addressbook.tests;
 
 import org.testng.annotations.Test;
+import ru.isdev.addressbook.model.ContactData;
 
 
 public class ContactCreationTests extends TestBase {
 
     @Test
     public void testContactCreationTests() throws Exception {
-        goToTheContactsPage();
-        initContactCreation();
-        fillContactForm(
+        app.goToTheContactsPage();
+        app.initContactCreation();
+        app.fillContactForm(
                 new ContactData(
                         "fname",
                         "mname",
@@ -37,7 +38,7 @@ public class ContactCreationTests extends TestBase {
                         "note1\nnote2\nnote3"
                 )
         );
-        submitContactCtreation();
+        app.submitContactCtreation();
     }
 
 }
