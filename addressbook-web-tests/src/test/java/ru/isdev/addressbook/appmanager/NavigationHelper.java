@@ -1,5 +1,6 @@
 package ru.isdev.addressbook.appmanager;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class NavigationHelper {
@@ -7,6 +8,10 @@ public class NavigationHelper {
 
     public NavigationHelper(FirefoxDriver wd) {
         this.wd = wd;
+    }
+
+    private void goToThePage(String page) {
+        wd.get("http://localhost/addressbook/" + page);
     }
 
     public void goToTheMainPage(){
@@ -17,7 +22,12 @@ public class NavigationHelper {
         goToTheMainPage();
     }
 
-    private void goToThePage(String page) {
-        wd.get("http://localhost/addressbook/" + page);
+    public void goToTheGroupPage() {
+        wd.findElement(By.linkText("groups")).click();
     }
+
+    public void returnToTheGroupPage() {
+        wd.findElement(By.linkText("group page")).click();
+    }
+
 }

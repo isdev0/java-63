@@ -114,7 +114,7 @@ public class ContactHelper {
         wd.findElement(By.linkText("add new")).click();
     }
 
-    public void submitContactCtreation() {
+    public void submitContactCreation() {
         wd.findElement(By.xpath("(//input[@name='submit'])[2]")).click();
     }
 

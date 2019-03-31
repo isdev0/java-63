@@ -38,7 +38,7 @@ public class ContactCreationTests extends TestBase {
                         "note1\nnote2\nnote3"
                 )
         );
-        app.getContactHelper().submitContactCtreation();
+        app.getContactHelper().submitContactCreation();
     }
 
 }

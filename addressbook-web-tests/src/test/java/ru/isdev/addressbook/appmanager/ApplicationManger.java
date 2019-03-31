@@ -28,7 +28,7 @@ public class ApplicationManger {
 
         navigationHelper.goToTheMainPage();
         sessionHelper.login("admin", "secret");
-        
+
     }
 
     public void stop() {
