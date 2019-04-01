@@ -15,7 +15,7 @@ public class ApplicationManger {
     public void init() {
 
         wd = new FirefoxDriver();
-        wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+        wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
         sessionHelper       = new SessionHelper(wd);
         navigationHelper    = new NavigationHelper(wd);

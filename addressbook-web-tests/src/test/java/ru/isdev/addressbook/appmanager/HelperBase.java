@@ -26,7 +26,7 @@ public class HelperBase {
     protected void select(String name, String text) {
         click(By.name(name));
         new Select(wd.findElement(By.name(name))).selectByVisibleText(text);
-        click(By.cssSelector("select[name=\"" + name + "\"] > option[value=\"" + text + "\"]"));
+//        click(By.cssSelector("select[name=\"" + name + "\"] > option[value=\"" + text + "\"]"));
     }
 
     public boolean isElementPresent(By by) {
