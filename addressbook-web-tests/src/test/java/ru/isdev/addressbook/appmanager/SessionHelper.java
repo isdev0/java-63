@@ -1,12 +1,12 @@
 package ru.isdev.addressbook.appmanager;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.WebDriver;
 
 public class SessionHelper extends HelperBase {
     private NavigationHelper navigationHelper;
 
-    public SessionHelper(FirefoxDriver wd) {
+    public SessionHelper(WebDriver wd) {
         super(wd);
         this.navigationHelper = new NavigationHelper(this.wd);
     }
