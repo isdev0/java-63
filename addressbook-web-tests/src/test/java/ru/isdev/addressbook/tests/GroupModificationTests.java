@@ -7,15 +7,12 @@ public class GroupModificationTests extends TestBase {
 
     @Test
     public void testGroupModification(){
-
         app.getNavigationHelper().goToTheGroupPage();
-
+        app.getGroupHelper().checkGroupPresence();
         app.getGroupHelper().selectGroup();
         app.getGroupHelper().initGroupModification();
         app.getGroupHelper().fillGroupForm(new GroupData("TestGroup1_Edit_name", "TestGroup1_Edit_header", "TestGroup1_Edit_footer"));
         app.getGroupHelper().submitGroupModification();
-
-        app.getNavigationHelper().returnToTheGroupPage();
-
+        app.getGroupHelper().returnToTheGroupPage();
     }
 }
