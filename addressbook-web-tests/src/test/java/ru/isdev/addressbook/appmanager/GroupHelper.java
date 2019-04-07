@@ -60,5 +60,5 @@ public class GroupHelper extends HelperBase {
             createGroup(new GroupData("TestGroup1_name", "TestGroup1_header", null));
         }
     }
-    
+
 }

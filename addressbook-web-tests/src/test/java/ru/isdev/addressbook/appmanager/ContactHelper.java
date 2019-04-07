@@ -61,4 +61,48 @@ public class ContactHelper extends HelperBase {
     public void submitContactModification() {
         click(By.xpath("(//input[@name='update'])[2]"));
     }
+
+    private boolean isThereAnyContact() {
+        return isElementPresent(By.name("selected[]"));
+    }
+
+    public void checkContactPresence() {
+        if( !isThereAnyContact() ) {
+            createContact(
+                    new ContactData(
+                            "fname_default",
+                            "mname_default",
+                            "lname_default",
+                            "nname_default",
+                            "title_default",
+                            "company_default",
+                            "address1_default\naddress2_default\naddress3_default",
+                            "thome_default",
+                            "tmobile_default",
+                            "twork_default",
+                            "tfax_default",
+                            "email1_default",
+                            "email2_default",
+                            "email3_default",
+                            "hpage_default",
+                            "1",
+                            "January",
+                            "2001",
+                            "2",
+                            "January",
+                            "2002",
+                            "secaddress1\nsecaddress2\nsecaddress3",
+                            "sechome",
+                            "note1\nnote2\nnote3"
+                    )
+            );
+        }
+    }
+
+    public void createContact(ContactData contact) {
+        initContactCreation();
+        fillContactForm(contact);
+        submitContactCreation();
+    }
+
 }
