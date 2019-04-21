@@ -1,8 +1,11 @@
 package ru.isdev.addressbook.tests;
 
 import org.openqa.selenium.By;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.isdev.addressbook.model.GroupData;
+
+import java.util.List;
 
 public class GroupDeletionTests extends TestBase {
 
@@ -13,10 +16,16 @@ public class GroupDeletionTests extends TestBase {
 
         app.getGroupHelper().checkGroupPresence();
 
-        app.getGroupHelper().selectGroup();
-        app.getGroupHelper().deleteSelectedGroups();
+        List<GroupData> before = app.getGroupHelper().getGroupList();
 
+        app.getGroupHelper().selectGroup(before.size() - 1);
+        app.getGroupHelper().deleteSelectedGroups();
         app.getGroupHelper().returnToTheGroupPage();
+
+        List<GroupData> after = app.getGroupHelper().getGroupList();
+
+        Assert.assertEquals(after.size(), before.size() - 1);
+
 
     }
 
