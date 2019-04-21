@@ -1,6 +1,5 @@
 package ru.isdev.addressbook.tests;
 
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.isdev.addressbook.model.GroupData;
@@ -26,7 +25,8 @@ public class GroupDeletionTests extends TestBase {
 
         Assert.assertEquals(after.size(), before.size() - 1);
 
-
+        before.remove(before.size() - 1);
+        Assert.assertEquals(before, after);
     }
 
 }
