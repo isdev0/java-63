@@ -1,6 +1,9 @@
 package ru.isdev.addressbook.model;
 
+import java.util.Objects;
+
 public class ContactData {
+    private int id;
     private final String fname;
     private final String mname;
     private final String lname;
@@ -21,12 +24,38 @@ public class ContactData {
     private final String byear;
     private final String aday;
     private final String amonth;
+
+    @Override
+    public String toString() {
+        return "ContactData{" +
+                "id=" + id +
+                ", fname='" + fname + '\'' +
+                ", lname='" + lname + '\'' +
+                '}';
+    }
+
     private final String ayear;
     private final String address2;
     private final String phone2;
     private final String notes;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ContactData that = (ContactData) o;
+        return id == that.id &&
+                Objects.equals(fname, that.fname) &&
+                Objects.equals(lname, that.lname);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, fname, lname);
+    }
+
     public ContactData(String fname, String mname, String lname, String nname, String title, String company, String address, String thome, String tmobile, String twork, String tfax, String email, String email2, String email3, String hpage, String bday, String bmonth, String byear, String aday, String amonth, String ayear, String address2, String phone2, String notes) {
+        this.id = 0;
         this.fname = fname;
         this.mname = mname;
         this.lname = lname;
@@ -147,5 +176,13 @@ public class ContactData {
 
     public String getNotes() {
         return notes;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

@@ -2,7 +2,12 @@ package ru.isdev.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import ru.isdev.addressbook.model.ContactData;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class ContactHelper extends HelperBase {
 
@@ -45,8 +50,8 @@ public class ContactHelper extends HelperBase {
         click(By.xpath("(//input[@name='submit'])[2]"));
     }
 
-    public void selectContact() {
-        click(By.name("selected[]"));
+    public void selectContact(int index) {
+        wd.findElements(By.name("selected[]")).get(index).click();
     }
 
     public void deleteSelectedContacts() {
@@ -105,4 +110,19 @@ public class ContactHelper extends HelperBase {
         submitContactCreation();
     }
 
+    public List<ContactData> getContactList() {
+        List<ContactData> contacts = new ArrayList<>();
+
+        List<WebElement> elements = wd.findElements(By.cssSelector("tr[name=entry]"));
+        for(WebElement element: elements){
+            List<WebElement> contactRow = element.findElements(By.tagName("td"));
+            int id = Integer.parseInt(contactRow.get(0).findElement(By.tagName("input")).getAttribute("Value"));
+            String lname = contactRow.get(1).getText();
+            String fname = contactRow.get(2).getText();
+            ContactData contact = new ContactData(fname,null,lname,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null);
+            contact.setId(id);
+            contacts.add(contact);
+        }
+        return contacts;
+    }
 }
