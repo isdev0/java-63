@@ -18,6 +18,8 @@ public class ContactDeletionTests extends TestBase {
         app.getContactHelper().selectContact(before.size() - 1);
         app.getContactHelper().deleteSelectedContacts();
 
+        // I had to add one more relocation due to FF being too slow to remove deleted objects from the DOM
+        app.getNavigationHelper().goToTheContactsPage();
         List<ContactData> after = app.getContactHelper().getContactList();
 
         Assert.assertEquals(after.size(), before.size() - 1);

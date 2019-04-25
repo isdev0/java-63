@@ -6,7 +6,6 @@ import org.openqa.selenium.WebElement;
 import ru.isdev.addressbook.model.ContactData;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class ContactHelper extends HelperBase {
