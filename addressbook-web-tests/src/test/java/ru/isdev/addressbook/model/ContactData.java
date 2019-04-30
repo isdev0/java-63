@@ -4,26 +4,31 @@ import java.util.Objects;
 
 public class ContactData {
     private int id;
-    private final String fname;
-    private final String mname;
-    private final String lname;
-    private final String nname;
-    private final String title;
-    private final String company;
-    private final String address;
-    private final String thome;
-    private final String tmobile;
-    private final String twork;
-    private final String tfax;
-    private final String email;
-    private final String email2;
-    private final String email3;
-    private final String hpage;
-    private final String bday;
-    private final String bmonth;
-    private final String byear;
-    private final String aday;
-    private final String amonth;
+    private String fname;
+    private String mname;
+    private String lname;
+    private String nname;
+    private String title;
+    private String company;
+    private String address;
+    private String thome;
+    private String tmobile;
+    private String twork;
+    private String tfax;
+    private String email;
+    private String email2;
+    private String email3;
+    private String hpage;
+    private String bday;
+    private String bmonth;
+    private String byear;
+    private String aday;
+    private String amonth;
+    private String ayear;
+    private String address2;
+    private String phone2;
+    private String notes;
+
 
     @Override
     public String toString() {
@@ -33,11 +38,6 @@ public class ContactData {
                 ", lname='" + lname + '\'' +
                 '}';
     }
-
-    private final String ayear;
-    private final String address2;
-    private final String phone2;
-    private final String notes;
 
     @Override
     public boolean equals(Object o) {
@@ -52,6 +52,12 @@ public class ContactData {
     @Override
     public int hashCode() {
         return Objects.hash(id, fname, lname);
+    }
+
+    public ContactData(String fname, String lname){
+        this.id = 0;
+        this.fname = fname;
+        this.lname = lname;
     }
 
     public ContactData(String fname, String mname, String lname, String nname, String title, String company, String address, String thome, String tmobile, String twork, String tfax, String email, String email2, String email3, String hpage, String bday, String bmonth, String byear, String aday, String amonth, String ayear, String address2, String phone2, String notes) {
