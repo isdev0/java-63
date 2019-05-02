@@ -4,9 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 import ru.isdev.addressbook.model.GroupData;
 
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
+import java.util.Set;
 
 public class GroupCreationTests extends TestBase {
 
@@ -16,12 +14,12 @@ public class GroupCreationTests extends TestBase {
         int maxIndex;
 
         app.goTo().theGroupPage();
-        List<GroupData> before = app.group().list();
+        Set<GroupData> before = app.group().all();
 
         GroupData group = new GroupData().withName("TetGroup1_name").withHeader("TestGroup1_header");
 
         app.group().create(group);
-        List<GroupData> after = app.group().list();
+        Set<GroupData> after = app.group().all();
 
         Assert.assertEquals(after.size(), before.size() + 1);
 
@@ -36,12 +34,13 @@ public class GroupCreationTests extends TestBase {
         */
 
         // Java 8 compatible code
-        maxIndex = after.stream().max(Comparator.comparingInt(GroupData::getId)).get().getId();
+        //maxIndex = after.stream().max(Comparator.comparingInt(GroupData::getId)).get().getId();
+        maxIndex = after.stream().mapToInt(GroupData::getId).max().getAsInt();
 
         group.withId(maxIndex);
         before.add(group);
 
-        Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
+        Assert.assertEquals(before, after);
     }
 
 }
