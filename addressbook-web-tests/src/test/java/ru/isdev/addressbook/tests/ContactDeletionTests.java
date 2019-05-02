@@ -1,11 +1,13 @@
 package ru.isdev.addressbook.tests;
 
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.isdev.addressbook.model.ContactData;
+import ru.isdev.addressbook.model.Contacts;
 
-import java.util.List;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 
 public class ContactDeletionTests extends TestBase {
 
@@ -18,20 +20,17 @@ public class ContactDeletionTests extends TestBase {
     @Test
     public void testContactDeletion(){
 
-        List<ContactData> before = app.contact().list();
-        int index = before.size() - 1;
+        Contacts before = app.contact().all();
+        ContactData deletedContact = before.iterator().next();
 
-        app.contact().select(index);
-        app.contact().deleteSelectedContacts();
-
+        app.contact().delete(deletedContact);
         // I had to add one more relocation due to FF being too slow to remove deleted objects from the DOM
         app.goTo().theContactPage();
-        List<ContactData> after = app.contact().list();
 
-        Assert.assertEquals(after.size(), before.size() - 1);
+        Contacts after = app.contact().all();
 
-        before.remove(before.size() - 1);
-        Assert.assertEquals(before, after);
+        assertEquals(after.size(), before.size() - 1);
+        assertThat(after, equalTo( before.without(deletedContact) ));
     }
 
 }

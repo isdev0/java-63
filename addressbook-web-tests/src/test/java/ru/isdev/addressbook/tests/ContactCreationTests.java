@@ -1,62 +1,65 @@
 package ru.isdev.addressbook.tests;
 
-import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.isdev.addressbook.model.ContactData;
+import ru.isdev.addressbook.model.Contacts;
 
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 
 
 public class ContactCreationTests extends TestBase {
 
+    @BeforeMethod
+    public void ensurePreconditions(){
+        app.goTo().theContactPage();
+    }
+
     @Test
     public void testContactCreationTests() throws Exception {
 
-        int maxIndex;
+        Contacts before = app.contact().all();
 
-        ContactData contact = new ContactData(
-                "fname",
-                "mname",
-                "lname",
-                "nname",
-                "title",
-                "company",
-                "address1\naddress2\naddress3",
-                "thome",
-                "tmobile",
-                "twork",
-                "tfax",
-                "email1",
-                "email2",
-                "email3",
-                "hpage",
-                "1",
-                "January",
-                "2000",
-                "10",
-                "October",
-                "2010",
-                "secaddress1\nsecaddress2\nsecaddress3",
-                "sechome",
-                "note1\nnote2\nnote3"
-        );
-
-        app.goTo().theContactPage();
-        List<ContactData> before = app.contact().list();
-
+        ContactData contact = new ContactData()
+                .withFname("fname")
+                .withMname("mname")
+                .withLname("lname")
+                .withNname("nname")
+                .withTitle("title")
+                .withCompany("company")
+                .withAddress("address1\naddress2\naddress3")
+                .withThome("thome")
+                .withTmobile("tmobile")
+                .withTwork("twork")
+                .withTfax("tfax")
+                .withEmail("email1")
+                .withEmail2("email2")
+                .withEmail3("email3")
+                .withHpage("hpage")
+                .withBday("1")
+                .withBmonth("January")
+                .withByear("2000")
+                .withAday("10")
+                .withAmonth("October")
+                .withAyear("2010")
+                .withAddress2("secaddress1\nsecaddress2\nsecaddress3")
+                .withPhone2("sechome")
+                .withNotes("note1\nnote2\nnote3");
         app.contact().create(contact);
-        List<ContactData> after = app.contact().list();
 
-        Assert.assertEquals(after.size(), before.size() + 1);
+        Contacts after = app.contact().all();
 
-        maxIndex = after.stream().max(Comparator.comparingInt(ContactData::getId)).get().getId();
-
-        contact.setId(maxIndex);
-        before.add(contact);
-
-        Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
+        assertEquals(after.size(), before.size() + 1);
+        assertThat(after, equalTo(
+                before.withAdded(
+                        contact.withId(
+                                after.stream().mapToInt(ContactData::getId).max().getAsInt()
+                        )
+                )
+            )
+        );
     }
 
 }

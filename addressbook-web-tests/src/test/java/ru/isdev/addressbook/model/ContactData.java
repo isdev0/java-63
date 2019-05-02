@@ -3,7 +3,7 @@ package ru.isdev.addressbook.model;
 import java.util.Objects;
 
 public class ContactData {
-    private int id;
+    private int id = 0;
     private String fname;
     private String mname;
     private String lname;
@@ -29,7 +29,6 @@ public class ContactData {
     private String phone2;
     private String notes;
 
-
     @Override
     public String toString() {
         return "ContactData{" +
@@ -52,40 +51,6 @@ public class ContactData {
     @Override
     public int hashCode() {
         return Objects.hash(id, fname, lname);
-    }
-
-    public ContactData(String fname, String lname){
-        this.id = 0;
-        this.fname = fname;
-        this.lname = lname;
-    }
-
-    public ContactData(String fname, String mname, String lname, String nname, String title, String company, String address, String thome, String tmobile, String twork, String tfax, String email, String email2, String email3, String hpage, String bday, String bmonth, String byear, String aday, String amonth, String ayear, String address2, String phone2, String notes) {
-        this.id = 0;
-        this.fname = fname;
-        this.mname = mname;
-        this.lname = lname;
-        this.nname = nname;
-        this.title = title;
-        this.company = company;
-        this.address = address;
-        this.thome = thome;
-        this.tmobile = tmobile;
-        this.twork = twork;
-        this.tfax = tfax;
-        this.email = email;
-        this.email2 = email2;
-        this.email3 = email3;
-        this.hpage = hpage;
-        this.bday = bday;
-        this.bmonth = bmonth;
-        this.byear = byear;
-        this.aday = aday;
-        this.amonth = amonth;
-        this.ayear = ayear;
-        this.address2 = address2;
-        this.phone2 = phone2;
-        this.notes = notes;
     }
 
     public String getFname() {
@@ -188,7 +153,129 @@ public class ContactData {
         return id;
     }
 
-    public void setId(int id) {
+    public ContactData withId(int id) {
         this.id = id;
+        return this;
     }
+
+    public ContactData withFname(String fname) {
+        this.fname = fname;
+        return this;
+    }
+
+    public ContactData withLname(String lname) {
+        this.lname = lname;
+        return this;
+    }
+
+    public ContactData withMname(String mname) {
+        this.mname = mname;
+        return this;
+    }
+
+    public ContactData withNname(String nname) {
+        this.nname = nname;
+        return this;
+    }
+
+    public ContactData withTitle(String title) {
+        this.title = title;
+        return this;
+    }
+
+    public ContactData withCompany(String company) {
+        this.company = company;
+        return this;
+    }
+
+    public ContactData withAddress(String address) {
+        this.address = address;
+        return this;
+    }
+
+    public ContactData withThome(String thome) {
+        this.thome = thome;
+        return this;
+    }
+
+    public ContactData withTmobile(String tmobile) {
+        this.tmobile = tmobile;
+        return this;
+    }
+
+    public ContactData withTwork(String twork) {
+        this.twork = twork;
+        return this;
+    }
+
+    public ContactData withTfax(String tfax) {
+        this.tfax = tfax;
+        return this;
+    }
+
+    public ContactData withEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
+    public ContactData withEmail2(String email2) {
+        this.email2 = email2;
+        return this;
+    }
+
+    public ContactData withEmail3(String email3) {
+        this.email3 = email3;
+        return this;
+    }
+
+    public ContactData withHpage(String hpage) {
+        this.hpage = hpage;
+        return this;
+    }
+
+    public ContactData withBday(String bday) {
+        this.bday = bday;
+        return this;
+    }
+
+    public ContactData withBmonth(String bmonth) {
+        this.bmonth = bmonth;
+        return this;
+    }
+
+    public ContactData withByear(String byear) {
+        this.byear = byear;
+        return this;
+    }
+
+    public ContactData withAday(String aday) {
+        this.aday = aday;
+        return this;
+    }
+
+    public ContactData withAmonth(String amonth) {
+        this.amonth = amonth;
+        return this;
+    }
+
+    public ContactData withAyear(String ayear) {
+        this.ayear = ayear;
+        return this;
+    }
+
+    public ContactData withAddress2(String address2) {
+        this.address2 = address2;
+        return this;
+    }
+
+    public ContactData withPhone2(String phone2) {
+        this.phone2 = phone2;
+        return this;
+    }
+
+    public ContactData withNotes(String notes) {
+        this.notes = notes;
+        return this;
+    }
+
 }

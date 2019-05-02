@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.isdev.addressbook.model.ContactData;
+import ru.isdev.addressbook.model.Contacts;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,13 +54,26 @@ public class ContactHelper extends HelperBase {
         wd.findElements(By.name("selected[]")).get(index).click();
     }
 
+    public void selectById(int id) {
+        wd.findElement(By.cssSelector("input[id='" + id + "']")).click();
+    }
+
     public void deleteSelectedContacts() {
         click(By.xpath("//input[@value='Delete']"));
         wd.switchTo().alert().accept();
     }
 
-    public void initContactModification(int index) {
+    public void delete(ContactData contact) {
+        selectById(contact.getId());
+        deleteSelectedContacts();
+    }
+
+    public void initContactModificationByIndex(int index) {
         wd.findElements(By.xpath("//img[@alt='Edit']")).get(index).click();
+    }
+
+    public void initContactModificationById(int id) {
+        wd.findElement(By.cssSelector("a[href='edit.php?id=" + id + "']")).click();
     }
 
     public void submitContactModification() {
@@ -67,34 +81,33 @@ public class ContactHelper extends HelperBase {
     }
 
     public void checkContactPresence() {
-        if(list().size() == 0){
+        if(all().size() == 0){
             create(
-                    new ContactData(
-                            "fname_default",
-                            "mname_default",
-                            "lname_default",
-                            "nname_default",
-                            "title_default",
-                            "company_default",
-                            "address1_default\naddress2_default\naddress3_default",
-                            "thome_default",
-                            "tmobile_default",
-                            "twork_default",
-                            "tfax_default",
-                            "email1_default",
-                            "email2_default",
-                            "email3_default",
-                            "hpage_default",
-                            "1",
-                            "January",
-                            "2001",
-                            "2",
-                            "January",
-                            "2002",
-                            "secaddress1\nsecaddress2\nsecaddress3",
-                            "sechome",
-                            "note1\nnote2\nnote3"
-                    )
+                    new ContactData()
+                            .withFname("fname_default")
+                            .withMname("mname_default")
+                            .withLname("lname_default")
+                            .withNname("nname_default")
+                            .withTitle("title_default")
+                            .withCompany("company_default")
+                            .withAddress("address1_default\naddress2_default\naddress3_default")
+                            .withThome("thome_default")
+                            .withTmobile("tmobile_default")
+                            .withTwork("twork_default")
+                            .withTfax("tfax_default")
+                            .withEmail("email1_default")
+                            .withEmail2("email2_default")
+                            .withEmail3("email3_default")
+                            .withHpage("hpage_default")
+                            .withBday("1")
+                            .withBmonth("January")
+                            .withByear("2001")
+                            .withAday("2")
+                            .withAmonth("January")
+                            .withAyear("2002")
+                            .withAddress2("secaddress1_default\nsecaddress2_default\nsecaddress3_default")
+                            .withPhone2("sechome_default")
+                            .withNotes("note1_default\nnote2_default\nnote3_default")
             );
         }
     }
@@ -105,19 +118,25 @@ public class ContactHelper extends HelperBase {
         submitContactCreation();
     }
 
-    public List<ContactData> list() {
-        List<ContactData> contacts = new ArrayList<>();
+    public void modify(ContactData contact) {
+        initContactModificationById(contact.getId());
+        fillContactForm(contact);
+        submitContactModification();
+    }
 
+    public Contacts all() {
+        Contacts contacts = new Contacts();
         List<WebElement> elements = wd.findElements(By.cssSelector("tr[name=entry]"));
         for(WebElement element: elements){
             List<WebElement> contactRow = element.findElements(By.tagName("td"));
             int id = Integer.parseInt(contactRow.get(0).findElement(By.tagName("input")).getAttribute("Value"));
             String lname = contactRow.get(1).getText();
             String fname = contactRow.get(2).getText();
-            ContactData contact = new ContactData(fname,lname);
-            contact.setId(id);
+            ContactData contact = new ContactData().withFname(fname).withLname(lname);
+            contact.withId(id);
             contacts.add(contact);
         }
         return contacts;
     }
+
 }

@@ -1,13 +1,13 @@
 package ru.isdev.addressbook.tests;
 
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.isdev.addressbook.model.ContactData;
+import ru.isdev.addressbook.model.Contacts;
 
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 
 public class ContactModificationTests extends TestBase {
 
@@ -20,56 +20,47 @@ public class ContactModificationTests extends TestBase {
     @Test
     public void testContactModification(){
 
-        ContactData contact = new ContactData(
-                "fname_edited",
-                "mname_edited",
-                "lname_edited",
-                "nname_edited",
-                "title_edited",
-                "company_edited",
-                "address1_edited\naddress2_edited\naddress3_edited",
-                "thome_edited",
-                "tmobile_edited",
-                "twork_edited",
-                "tfax_edited",
-                "email1_edited",
-                "email2_edited",
-                "email3_edited",
-                "hpage_edited",
-                "3",
-                "March",
-                "2003",
-                "12",
-                "December",
-                "2012",
-                "secaddress1_edited\nsecaddress2_edited\nsecaddress3_edited",
-                "sechome_edited",
-                "note1_edited\nnote2_edited\nnote3_edited"
+        Contacts before = app.contact().all();
+        ContactData modifiedContact = before.iterator().next();
+
+
+        ContactData contact = new ContactData()
+                .withId(modifiedContact.getId())
+                .withFname("fname_edited")
+                .withMname("mname_edited")
+                .withLname("lname_edited")
+                .withNname("nname_edited")
+                .withTitle("title_edited")
+                .withCompany("company_edited")
+                .withAddress("address1_edited\naddress2_edited\naddress3_edited")
+                .withThome("thome_edited")
+                .withTmobile("tmobile_edited")
+                .withTwork("twork_edited")
+                .withTfax("tfax_edited")
+                .withEmail("email1_edited")
+                .withEmail2("email2_edited")
+                .withEmail3("email3_edited")
+                .withHpage("hpage_edited")
+                .withBday("3")
+                .withBmonth("March")
+                .withByear("2003")
+                .withAday("12")
+                .withAmonth("December")
+                .withAyear("2012")
+                .withAddress2("secaddress1_edited\nsecaddress2_edited\nsecaddress3_edited")
+                .withPhone2("sechome_edited")
+                .withNotes("note1_edited\nnote2_edited\nnote3_edited");
+        app.contact().modify(contact);
+
+        Contacts after = app.contact().all();
+
+        assertEquals(after.size(), before.size());
+        assertThat(after, equalTo( before
+                .without(modifiedContact)
+                .withAdded(contact)
+                )
         );
 
-        List<ContactData> before = app.contact().list();
-        int index = before.size() - 1;
-
-        app.contact().initContactModification(index);
-        app.contact().fillContactForm(contact);
-        app.contact().submitContactModification();
-
-        List<ContactData> after = app.contact().list();
-
-        Assert.assertEquals(after.size(), before.size());
-
-        before.remove(index);
-        before.add(contact);
-        before.set(index, contact).setId(after.get(after.size() - 1).getId());
-
-        Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
-
-        // not necessary but not redundant yet assert (using sort comparator)
-        Comparator<ContactData> byId = Comparator.comparingInt(ContactData::getId);
-        before.sort(byId);
-        after.sort(byId);
-
-        Assert.assertEquals(before, after);
     }
 
 }
