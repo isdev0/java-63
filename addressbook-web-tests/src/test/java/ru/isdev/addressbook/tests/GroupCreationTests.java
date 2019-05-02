@@ -18,7 +18,7 @@ public class GroupCreationTests extends TestBase {
         app.goTo().theGroupPage();
         List<GroupData> before = app.group().list();
 
-        GroupData group = new GroupData("TestGroup1_name", "TestGroup1_header", null);
+        GroupData group = new GroupData().withName("TetGroup1_name").withHeader("TestGroup1_header");
 
         app.group().create(group);
         List<GroupData> after = app.group().list();
@@ -38,7 +38,7 @@ public class GroupCreationTests extends TestBase {
         // Java 8 compatible code
         maxIndex = after.stream().max(Comparator.comparingInt(GroupData::getId)).get().getId();
 
-        group.setId(maxIndex);
+        group.withId(maxIndex);
         before.add(group);
 
         Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));

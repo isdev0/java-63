@@ -21,7 +21,7 @@ public class GroupModificationTests extends TestBase {
 
         List<GroupData> before = app.group().list();
         int index  = before.size() - 1;
-        GroupData group = new GroupData(before.get(index).getId(), "TestGroup1_Edit_name", "TestGroup1_Edit_header", "TestGroup1_Edit_footer");
+        GroupData group = new GroupData().withId(before.get(index).getId()).withName("TestGroup1_Edit_name").withHeader("TestGroup1_Edit_header").withFooter("TestGroup1_Edit_footer");
 
         app.group().modify(index, group);
 

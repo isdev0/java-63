@@ -71,7 +71,7 @@ public class GroupHelper extends HelperBase {
 
     public void checkGroupPresence() {
         if(list().size() == 0){
-            create(new GroupData("TestGroup1_name", "TestGroup1_header", null));
+            create(new GroupData().withName("TestGroup1_name").withHeader("TestGroup1_header"));
         }
     }
 
@@ -81,8 +81,7 @@ public class GroupHelper extends HelperBase {
         for(WebElement element: elements){
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("Value"));
             String name = element.getText();
-            GroupData group = new GroupData(id, name, null, null);
-            groups.add(group);
+            groups.add(new GroupData().withId(id).withName(name));
         }
         return groups;
     }
