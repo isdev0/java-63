@@ -25,7 +25,7 @@ public class GroupCreationTests extends TestBase {
 
         Assert.assertEquals(after.size(), before.size() + 1);
 
-        // saved for Java 6 compatible code
+        // Java 6 compatible code
         /*
         maxIndex = 0;
         for(GroupData g: after){
@@ -35,6 +35,7 @@ public class GroupCreationTests extends TestBase {
         }
         */
 
+        // Java 8 compatible code
         maxIndex = after.stream().max(Comparator.comparingInt(GroupData::getId)).get().getId();
 
         group.setId(maxIndex);

@@ -1,6 +1,7 @@
 package ru.isdev.addressbook.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.isdev.addressbook.model.GroupData;
 
@@ -8,12 +9,14 @@ import java.util.List;
 
 public class GroupDeletionTests extends TestBase {
 
+    @BeforeMethod
+    public void ensurePreconditions(){
+        app.getNavigationHelper().goToTheGroupPage();
+        app.getGroupHelper().checkGroupPresence();
+    }
+
     @Test
     public void testGroupDeletion() throws Exception {
-
-        app.getNavigationHelper().goToTheGroupPage();
-
-        app.getGroupHelper().checkGroupPresence();
 
         List<GroupData> before = app.getGroupHelper().getGroupList();
 

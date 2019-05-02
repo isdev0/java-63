@@ -1,6 +1,7 @@
 package ru.isdev.addressbook.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.isdev.addressbook.model.GroupData;
 
@@ -9,27 +10,28 @@ import java.util.List;
 
 public class GroupModificationTests extends TestBase {
 
-    @Test
-    public void testGroupModification(){
+    @BeforeMethod
+    public void ensurePreconditions(){
         app.getNavigationHelper().goToTheGroupPage();
         app.getGroupHelper().checkGroupPresence();
+    }
+
+    @Test
+    public void testGroupModification(){
 
         List<GroupData> before = app.getGroupHelper().getGroupList();
+        int index  = before.size() - 1;
+        GroupData group = new GroupData(before.get(index).getId(), "TestGroup1_Edit_name", "TestGroup1_Edit_header", "TestGroup1_Edit_footer");
 
-        GroupData group = new GroupData(before.get(before.size() - 1).getId(), "TestGroup1_Edit_name", "TestGroup1_Edit_header", "TestGroup1_Edit_footer");
-
-        app.getGroupHelper().selectGroup(before.size() - 1);
-        app.getGroupHelper().initGroupModification();
-        app.getGroupHelper().fillGroupForm(group);
-        app.getGroupHelper().submitGroupModification();
-        app.getGroupHelper().returnToTheGroupPage();
+        app.getGroupHelper().modifyGroup(index, group);
 
         List<GroupData> after = app.getGroupHelper().getGroupList();
 
         Assert.assertEquals(after.size(), before.size());
 
-        before.remove(before.size() - 1);
+        before.remove(index);
         before.add(group);
         Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
     }
+
 }
