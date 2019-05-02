@@ -15,13 +15,13 @@ public class GroupCreationTests extends TestBase {
 
         int maxIndex;
 
-        app.getNavigationHelper().goToTheGroupPage();
-        List<GroupData> before = app.getGroupHelper().getGroupList();
+        app.goTo().theGroupPage();
+        List<GroupData> before = app.group().list();
 
         GroupData group = new GroupData("TestGroup1_name", "TestGroup1_header", null);
 
-        app.getGroupHelper().createGroup(group);
-        List<GroupData> after = app.getGroupHelper().getGroupList();
+        app.group().create(group);
+        List<GroupData> after = app.group().list();
 
         Assert.assertEquals(after.size(), before.size() + 1);
 

@@ -1,6 +1,7 @@
 package ru.isdev.addressbook.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.isdev.addressbook.model.ContactData;
 
@@ -9,6 +10,12 @@ import java.util.HashSet;
 import java.util.List;
 
 public class ContactModificationTests extends TestBase {
+
+    @BeforeMethod
+    public void ensurePreconditions(){
+        app.goTo().theContactPage();
+        app.contact().checkContactPresence();
+    }
 
     @Test
     public void testContactModification(){
@@ -40,22 +47,20 @@ public class ContactModificationTests extends TestBase {
                 "note1_edited\nnote2_edited\nnote3_edited"
         );
 
-        app.getNavigationHelper().goToTheContactsPage();
-        app.getContactHelper().checkContactPresence();
+        List<ContactData> before = app.contact().list();
+        int index = before.size() - 1;
 
-        List<ContactData> before = app.getContactHelper().getContactList();
+        app.contact().initContactModification(index);
+        app.contact().fillContactForm(contact);
+        app.contact().submitContactModification();
 
-        app.getContactHelper().initContactModification(before.size()-1);
-        app.getContactHelper().fillContactForm(contact);
-        app.getContactHelper().submitContactModification();
-
-        List<ContactData> after = app.getContactHelper().getContactList();
+        List<ContactData> after = app.contact().list();
 
         Assert.assertEquals(after.size(), before.size());
 
-        before.remove(before.size() - 1);
+        before.remove(index);
         before.add(contact);
-        before.set(before.size() - 1, contact).setId(after.get(after.size() - 1).getId());
+        before.set(index, contact).setId(after.get(after.size() - 1).getId());
 
         Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
 

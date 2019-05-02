@@ -1,6 +1,7 @@
 package ru.isdev.addressbook.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.isdev.addressbook.model.ContactData;
 
@@ -8,19 +9,24 @@ import java.util.List;
 
 public class ContactDeletionTests extends TestBase {
 
+    @BeforeMethod
+    public void ensurePreconditions(){
+        app.goTo().theContactPage();
+        app.contact().checkContactPresence();
+    }
+
     @Test
     public void testContactDeletion(){
-        app.getNavigationHelper().goToTheContactsPage();
-        app.getContactHelper().checkContactPresence();
 
-        List<ContactData> before = app.getContactHelper().getContactList();
+        List<ContactData> before = app.contact().list();
+        int index = before.size() - 1;
 
-        app.getContactHelper().selectContact(before.size() - 1);
-        app.getContactHelper().deleteSelectedContacts();
+        app.contact().select(index);
+        app.contact().deleteSelectedContacts();
 
         // I had to add one more relocation due to FF being too slow to remove deleted objects from the DOM
-        app.getNavigationHelper().goToTheContactsPage();
-        List<ContactData> after = app.getContactHelper().getContactList();
+        app.goTo().theContactPage();
+        List<ContactData> after = app.contact().list();
 
         Assert.assertEquals(after.size(), before.size() - 1);
 

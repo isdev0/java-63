@@ -49,7 +49,7 @@ public class ContactHelper extends HelperBase {
         click(By.xpath("(//input[@name='submit'])[2]"));
     }
 
-    public void selectContact(int index) {
+    public void select(int index) {
         wd.findElements(By.name("selected[]")).get(index).click();
     }
 
@@ -66,13 +66,9 @@ public class ContactHelper extends HelperBase {
         click(By.xpath("(//input[@name='update'])[2]"));
     }
 
-    private boolean isThereAnyContact() {
-        return isElementPresent(By.name("selected[]"));
-    }
-
     public void checkContactPresence() {
-        if( !isThereAnyContact() ) {
-            createContact(
+        if(list().size() == 0){
+            create(
                     new ContactData(
                             "fname_default",
                             "mname_default",
@@ -103,13 +99,13 @@ public class ContactHelper extends HelperBase {
         }
     }
 
-    public void createContact(ContactData contact) {
+    public void create(ContactData contact) {
         initContactCreation();
         fillContactForm(contact);
         submitContactCreation();
     }
 
-    public List<ContactData> getContactList() {
+    public List<ContactData> list() {
         List<ContactData> contacts = new ArrayList<>();
 
         List<WebElement> elements = wd.findElements(By.cssSelector("tr[name=entry]"));

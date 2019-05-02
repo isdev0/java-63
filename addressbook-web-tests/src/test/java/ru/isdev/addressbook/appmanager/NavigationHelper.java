@@ -9,19 +9,19 @@ public class NavigationHelper extends HelperBase {
         super(wd);
     }
 
-    private void goToThePage(String page) {
+    private void thePage(String page) {
         wd.get("http://localhost/addressbook/" + page);
     }
 
-    public void goToTheMainPage(){
-        goToThePage("index.php");
+    public void theMainPage(){
+        thePage("index.php");
     }
 
-    public void goToTheContactsPage(){
-        goToTheMainPage();
+    public void theContactPage(){
+        theMainPage();
     }
 
-    public void goToTheGroupPage() {
+    public void theGroupPage() {
         click(By.linkText("groups"));
     }
 
