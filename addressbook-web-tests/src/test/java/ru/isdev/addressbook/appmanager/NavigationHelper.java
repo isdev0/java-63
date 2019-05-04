@@ -10,7 +10,8 @@ public class NavigationHelper extends HelperBase {
     }
 
     private void thePage(String page) {
-        wd.get("http://localhost/addressbook/" + page);
+        String baseUrl = "http://localhost/addressbook/";
+        wd.get(baseUrl + page);
     }
 
     public void theMainPage(){

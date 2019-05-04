@@ -6,9 +6,7 @@ import org.openqa.selenium.WebElement;
 import ru.isdev.addressbook.model.GroupData;
 import ru.isdev.addressbook.model.Groups;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class GroupHelper extends HelperBase {
 

@@ -7,11 +7,16 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.BrowserType;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 public class ApplicationManger {
 
     private final String browser;
+    private final Properties properties;
     public WebDriver wd;
 
     private SessionHelper sessionHelper;
@@ -19,11 +24,21 @@ public class ApplicationManger {
     private ContactHelper contactHelper;
     private GroupHelper groupHelper;
 
-    public ApplicationManger(String browser) {
+    public ApplicationManger(String browser){
         this.browser = browser;
+        properties = new Properties();
     }
 
-    public void init() {
+    public void init() throws IOException {
+
+        String target = System.getProperty("target","local");
+        properties.load(
+                new FileReader(
+                        new File(
+                                String.format("src/test/resources/%s.properties", target)
+                        )
+                )
+        );
 
         if(browser.equals(BrowserType.FIREFOX)){
             wd = new FirefoxDriver();
@@ -38,7 +53,7 @@ public class ApplicationManger {
             wd = new InternetExplorerDriver();
         }
 
-        wd.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        wd.manage().timeouts().implicitlyWait(Integer.parseInt(properties.getProperty("wd.implicitlyWait")), TimeUnit.SECONDS);
 
         sessionHelper       = new SessionHelper(wd);
         navigationHelper    = new NavigationHelper(wd);
@@ -46,7 +61,10 @@ public class ApplicationManger {
         contactHelper       = new ContactHelper(wd);
 
         navigationHelper.theMainPage();
-        sessionHelper.login("admin", "secret");
+        sessionHelper.login(
+                properties.getProperty("web.adminLogin"),
+                properties.getProperty("web.adminPass")
+        );
 
     }
 
@@ -66,4 +84,9 @@ public class ApplicationManger {
     public ContactHelper contact() {
         return contactHelper;
     }
+
+    public Properties getProperties() {
+        return properties;
+    }
+
 }

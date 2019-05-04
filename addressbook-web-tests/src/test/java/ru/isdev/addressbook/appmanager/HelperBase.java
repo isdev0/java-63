@@ -2,7 +2,6 @@ package ru.isdev.addressbook.appmanager;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
-import org.testng.annotations.BeforeMethod;
 
 import java.io.File;
 
