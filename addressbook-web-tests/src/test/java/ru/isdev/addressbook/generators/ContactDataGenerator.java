@@ -64,9 +64,9 @@ public class ContactDataGenerator {
 
         String json = gson.toJson(contacts);
 
-        Writer writer = new FileWriter(file);
-        writer.write(json);
-        writer.close();
+        try( Writer writer = new FileWriter(file) ) {
+            writer.write(json);
+        }
     }
 
     private void saveAsXML(List<ContactData> contacts, File file) throws IOException {
@@ -76,9 +76,9 @@ public class ContactDataGenerator {
 
         String xml = xstream.toXML(contacts);
 
-        Writer writer = new FileWriter(file);
-        writer.write(xml);
-        writer.close();
+        try( Writer writer = new FileWriter(file) ) {
+            writer.write(xml);
+        }
     }
 
     private List<ContactData> generateContacts(int count) {
