@@ -29,6 +29,7 @@ public class ContactData {
     private String phone2;
     private String notes;
     private String phones;
+    private String emails;
 
     @Override
     public String toString() {
@@ -152,6 +153,10 @@ public class ContactData {
 
     public String getNotes() {
         return notes;
+    }
+
+    public String getEmails() {
+        return emails;
     }
 
     public String getPhones() {
@@ -278,14 +283,18 @@ public class ContactData {
         return this;
     }
 
-    public ContactData withAllPhones(String phones) {
-        this.phones = phones;
+    public ContactData withNotes(String notes) {
+        this.notes = notes;
         return this;
     }
 
+    public ContactData withAllEmails(String emails) {
+        this.emails = emails;
+        return this;
+    }
 
-    public ContactData withNotes(String notes) {
-        this.notes = notes;
+    public ContactData withAllPhones(String phones) {
+        this.phones = phones;
         return this;
     }
 

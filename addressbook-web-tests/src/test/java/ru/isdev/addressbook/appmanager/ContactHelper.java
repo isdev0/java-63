@@ -133,12 +133,16 @@ public class ContactHelper extends HelperBase {
 
             String lname = contactRow.get(1).getText();
             String fname = contactRow.get(2).getText();
+            String address = contactRow.get(3).getText();
+            String emails = contactRow.get(4).getText();
             String phones = contactRow.get(5).getText();
 
             ContactData contact = new ContactData()
                     .withId(id)
                     .withFname(fname)
                     .withLname(lname)
+                    .withAddress(address)
+                    .withAllEmails(emails)
                     .withAllPhones(phones);
 
             contacts.add(contact);
@@ -156,6 +160,10 @@ public class ContactHelper extends HelperBase {
         String tmobile  = wd.findElement(By.name("mobile")).getAttribute("value");
         String twork    = wd.findElement(By.name("work")).getAttribute("value");
         String sechome  = wd.findElement(By.name("phone2")).getAttribute("value");
+        String address  = wd.findElement(By.name("address")).getAttribute("value");
+        String email    = wd.findElement(By.name("email")).getAttribute("value");
+        String email2   = wd.findElement(By.name("email2")).getAttribute("value");
+        String email3   = wd.findElement(By.name("email3")).getAttribute("value");
 
         wd.navigate().back();
 
@@ -166,6 +174,10 @@ public class ContactHelper extends HelperBase {
                 .withThome(thome)
                 .withTmobile(tmobile)
                 .withTwork(twork)
-                .withPhone2(sechome);
+                .withPhone2(sechome)
+                .withAddress(address)
+                .withEmail(email)
+                .withEmail2(email2)
+                .withEmail3(email3);
     }
 }
