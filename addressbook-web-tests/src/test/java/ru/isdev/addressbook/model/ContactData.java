@@ -28,6 +28,7 @@ public class ContactData {
     private String address2;
     private String phone2;
     private String notes;
+    private String phones;
 
     @Override
     public String toString() {
@@ -51,6 +52,10 @@ public class ContactData {
     @Override
     public int hashCode() {
         return Objects.hash(id, fname, lname);
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getFname() {
@@ -149,8 +154,8 @@ public class ContactData {
         return notes;
     }
 
-    public int getId() {
-        return id;
+    public String getPhones() {
+        return phones;
     }
 
     public ContactData withId(int id) {
@@ -272,6 +277,12 @@ public class ContactData {
         this.phone2 = phone2;
         return this;
     }
+
+    public ContactData withAllPhones(String phones) {
+        this.phones = phones;
+        return this;
+    }
+
 
     public ContactData withNotes(String notes) {
         this.notes = notes;

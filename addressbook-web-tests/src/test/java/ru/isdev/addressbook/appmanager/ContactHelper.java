@@ -133,16 +133,13 @@ public class ContactHelper extends HelperBase {
 
             String lname = contactRow.get(1).getText();
             String fname = contactRow.get(2).getText();
-            String[] phones = contactRow.get(5).getText().split("\n");
+            String phones = contactRow.get(5).getText();
 
             ContactData contact = new ContactData()
                     .withId(id)
                     .withFname(fname)
                     .withLname(lname)
-                    .withThome(phones[0])
-                    .withTmobile(phones[1])
-                    .withTwork(phones[2])
-                    .withPhone2(phones[3]);
+                    .withAllPhones(phones);
 
             contacts.add(contact);
         }
