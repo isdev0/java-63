@@ -130,13 +130,45 @@ public class ContactHelper extends HelperBase {
         for(WebElement element: elements){
             List<WebElement> contactRow = element.findElements(By.tagName("td"));
             int id = Integer.parseInt(contactRow.get(0).findElement(By.tagName("input")).getAttribute("Value"));
+
             String lname = contactRow.get(1).getText();
             String fname = contactRow.get(2).getText();
-            ContactData contact = new ContactData().withFname(fname).withLname(lname);
-            contact.withId(id);
+            String[] phones = contactRow.get(5).getText().split("\n");
+
+            ContactData contact = new ContactData()
+                    .withId(id)
+                    .withFname(fname)
+                    .withLname(lname)
+                    .withThome(phones[0])
+                    .withTmobile(phones[1])
+                    .withTwork(phones[2])
+                    .withPhone2(phones[3]);
+
             contacts.add(contact);
         }
         return contacts;
     }
 
+    public ContactData infoFromEditForm(ContactData contact) {
+
+        initContactModificationById(contact.getId());
+
+        String fname    = wd.findElement(By.name("firstname")).getAttribute("value");
+        String lname    = wd.findElement(By.name("lastname")).getAttribute("value");
+        String thome    = wd.findElement(By.name("home")).getAttribute("value");
+        String tmobile  = wd.findElement(By.name("mobile")).getAttribute("value");
+        String twork    = wd.findElement(By.name("work")).getAttribute("value");
+        String sechome  = wd.findElement(By.name("phone2")).getAttribute("value");
+
+        wd.navigate().back();
+
+        return new ContactData()
+                .withId(contact.getId())
+                .withFname(fname)
+                .withLname(lname)
+                .withThome(thome)
+                .withTmobile(tmobile)
+                .withTwork(twork)
+                .withPhone2(sechome);
+    }
 }
