@@ -1,37 +1,42 @@
 package ru.isdev.addressbook.model;
 
+import com.google.gson.annotations.Expose;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
 import java.io.File;
 import java.util.Objects;
 
+@XStreamAlias("contact")
 public class ContactData {
-    private int id = 0;
-    private String fname;
-    private String mname;
-    private String lname;
-    private String nname;
-    private String title;
-    private String company;
-    private String address;
-    private String thome;
-    private String tmobile;
-    private String twork;
-    private String tfax;
-    private String email;
-    private String email2;
-    private String email3;
-    private String hpage;
-    private String bday;
-    private String bmonth;
-    private String byear;
-    private String aday;
-    private String amonth;
-    private String ayear;
-    private String address2;
-    private String phone2;
-    private String notes;
-    private String phones;
-    private String emails;
-    private File photo;
+    @XStreamOmitField private int id = 0;
+    @Expose private String fname;
+    @Expose private String mname;
+    @Expose private String lname;
+    @Expose private String nname;
+    @Expose private String title;
+    @Expose private String company;
+    @Expose private String address;
+    @Expose private String thome;
+    @Expose private String tmobile;
+    @Expose private String twork;
+    @Expose private String tfax;
+    @Expose private String email;
+    @Expose private String email2;
+    @Expose private String email3;
+    @Expose private String hpage;
+    @Expose private String bday;
+    @Expose private String bmonth;
+    @Expose private String byear;
+    @Expose private String aday;
+    @Expose private String amonth;
+    @Expose private String ayear;
+    @Expose private String address2;
+    @Expose private String phone2;
+    @Expose private String notes;
+    @Expose private String phones;
+    @Expose private String emails;
+    @Expose private File photo;
 
     @Override
     public String toString() {

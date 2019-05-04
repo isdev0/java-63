@@ -54,7 +54,7 @@ public class GroupDataGenerator {
             saveAsJSON(groups, new File(file));
 
         }else{
-            System.out.println("Data format is unrecognized");
+            System.out.println("Data format is not recognized");
         }
     }
 
