@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import ru.isdev.addressbook.model.GroupData;
 import ru.isdev.addressbook.model.Groups;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -16,21 +17,30 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class GroupCreationTests extends TestBase {
 
     @DataProvider
-    public Iterator<Object[]> validGroups(){
+    public Iterator<Object[]> validGroups() throws IOException {
 
-        List<Object[]> list = new ArrayList<Object[]>();
+        List<Object[]> list = new ArrayList<>();
 
-        list.add(new Object[] {
-                new GroupData()
-                        .withName("TetGroup1_name")
-                        .withHeader("TestGroup1_header")
-        });
+        BufferedReader reader = new BufferedReader(
+                new FileReader(
+                        new File("src/test/resources/groups.csv")
+                )
+        );
 
-        list.add(new Object[] {
-                new GroupData()
-                        .withName("TetGroup2_name")
-                        .withHeader("TestGroup2_header")
-        });
+        String line = reader.readLine();
+
+        while(line != null){
+            String[] splited = line.split(";");
+
+            list.add(new Object[]{
+                    new GroupData()
+                            .withName(splited[0])
+                            .withHeader(splited[1])
+                            .withFooter(splited[2])
+            });
+
+            line = reader.readLine();
+        }
 
         return list.iterator();
     }
