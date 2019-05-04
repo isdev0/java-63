@@ -1,11 +1,18 @@
 package ru.isdev.addressbook.tests;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.thoughtworks.xstream.XStream;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.isdev.addressbook.model.ContactData;
 import ru.isdev.addressbook.model.Contacts;
 
-import java.io.File;
+import java.io.*;
+import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -14,45 +21,73 @@ import static org.testng.Assert.assertEquals;
 
 public class ContactCreationTests extends TestBase {
 
+    @DataProvider
+    public Iterator<Object[]> validContacts_XML() throws IOException {
+
+        BufferedReader reader = new BufferedReader(
+                new FileReader(
+                        new File("src/test/resources/contacts.xml")
+                )
+        );
+
+        String line = reader.readLine();
+        String xml = "";
+
+        while (line != null) {
+            xml += line;
+            line = reader.readLine();
+        }
+
+        XStream xstream = new XStream();
+        xstream.processAnnotations(ContactData.class);
+
+        List<ContactData> contacts = (List<ContactData>) xstream.fromXML(xml);
+
+        return contacts.stream()
+                .map( (g) -> new Object[]{g} )
+                .collect(Collectors.toList())
+                .iterator();
+    }
+
+    @DataProvider
+    public Iterator<Object[]> validContacts_JSON() throws IOException {
+
+        BufferedReader reader = new BufferedReader(
+                new FileReader(
+                        new File("src/test/resources/contacts.json")
+                )
+        );
+
+        String line = reader.readLine();
+        String json = "";
+
+        while (line != null) {
+            json += line;
+            line = reader.readLine();
+        }
+
+        Gson gson = new Gson();
+        List<ContactData> contacts = gson.fromJson(json, new TypeToken<List<ContactData>>(){}.getType());
+
+        return contacts.stream()
+                .map( (g) -> new Object[]{g} )
+                .collect(Collectors.toList())
+                .iterator();
+    }
+
     @BeforeMethod
     public void ensurePreconditions(){
         app.goTo().theContactPage();
     }
 
-    @Test()
-    public void testContactCreation() throws Exception {
+    @Test(dataProvider = "validContacts_JSON")
+    public void testContactCreation(ContactData contact) throws Exception {
 
         File photo = new File("src/test/resources/avatar.png");
 
         Contacts before = app.contact().all();
 
-        ContactData contact = new ContactData()
-                .withFname("fname")
-                .withMname("mname")
-                .withLname("lname")
-                .withNname("nname")
-                .withTitle("title")
-                .withCompany("company")
-                .withAddress("address1\naddress2\naddress3")
-                .withThome("thome")
-                .withTmobile("tmobile")
-                .withTwork("twork")
-                .withTfax("tfax")
-                .withEmail("email1")
-                .withEmail2("email2")
-                .withEmail3("email3")
-                .withHpage("hpage")
-                .withBday("1")
-                .withBmonth("January")
-                .withByear("2000")
-                .withAday("10")
-                .withAmonth("October")
-                .withAyear("2010")
-                .withAddress2("secaddress1\nsecaddress2\nsecaddress3")
-                .withPhone2("sechome")
-                .withNotes("note1\nnote2\nnote3")
-                .withPhoto(photo)
-                ;
+        contact.withPhoto(photo);
         app.contact().create(contact);
 
         Contacts after = app.contact().all();
