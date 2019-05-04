@@ -3,13 +3,16 @@ package ru.isdev.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import java.util.Properties;
+
 public class SessionHelper extends HelperBase {
     private NavigationHelper navigationHelper;
+    private Properties properties;
 
-    public SessionHelper(WebDriver wd) {
+    public SessionHelper(WebDriver wd, Properties properties) {
         super(wd);
-
-        this.navigationHelper = new NavigationHelper(this.wd);
+        this.properties = properties;
+        this.navigationHelper = new NavigationHelper(this.wd, this.properties);
     }
 
     public void login(String username, String password) {

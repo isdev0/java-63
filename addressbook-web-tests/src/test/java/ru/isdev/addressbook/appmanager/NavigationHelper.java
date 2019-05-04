@@ -3,15 +3,19 @@ package ru.isdev.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import java.util.Properties;
+
 public class NavigationHelper extends HelperBase {
 
-    public NavigationHelper(WebDriver wd) {
+    private Properties properties;
+
+    public NavigationHelper(WebDriver wd, Properties properties) {
         super(wd);
+        this.properties = properties;
     }
 
     private void thePage(String page) {
-        String baseUrl = "http://localhost/addressbook/";
-        wd.get(baseUrl + page);
+        wd.get(properties.getProperty("web.baseUrl") + page);
     }
 
     public void theMainPage(){

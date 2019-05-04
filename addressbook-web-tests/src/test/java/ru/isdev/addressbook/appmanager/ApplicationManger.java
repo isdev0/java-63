@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 public class ApplicationManger {
 
     private final String browser;
-    private final Properties properties;
+    public final Properties properties;
     public WebDriver wd;
 
     private SessionHelper sessionHelper;
@@ -55,8 +55,8 @@ public class ApplicationManger {
 
         wd.manage().timeouts().implicitlyWait(Integer.parseInt(properties.getProperty("wd.implicitlyWait")), TimeUnit.SECONDS);
 
-        sessionHelper       = new SessionHelper(wd);
-        navigationHelper    = new NavigationHelper(wd);
+        sessionHelper       = new SessionHelper(wd,properties);
+        navigationHelper    = new NavigationHelper(wd,properties);
         groupHelper         = new GroupHelper(wd);
         contactHelper       = new ContactHelper(wd);
 
