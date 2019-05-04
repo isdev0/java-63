@@ -1,0 +1,27 @@
+[
+  {
+    "name": "TestGroup1",
+    "header": "TestGroup1_header",
+    "footer": "TestGroup1_footer"
+  },
+  {
+    "name": "TestGroup2",
+    "header": "TestGroup2_header",
+    "footer": "TestGroup2_footer"
+  },
+  {
+    "name": "TestGroup3",
+    "header": "TestGroup3_header",
+    "footer": "TestGroup3_footer"
+  },
+  {
+    "name": "TestGroup4",
+    "header": "TestGroup4_header",
+    "footer": "TestGroup4_footer"
+  },
+  {
+    "name": "TestGroup5",
+    "header": "TestGroup5_header",
+    "footer": "TestGroup5_footer"
+  }
+]

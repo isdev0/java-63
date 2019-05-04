@@ -1,5 +1,7 @@
 package ru.isdev.addressbook.tests;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.thoughtworks.xstream.XStream;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
@@ -21,7 +23,7 @@ public class GroupCreationTests extends TestBase {
     @DataProvider
     public Iterator<Object[]> validGroups() throws IOException {
 
-        String format="xml";
+        String format="json";
 
         List<Object[]> list = new ArrayList<>();
 
@@ -62,6 +64,21 @@ public class GroupCreationTests extends TestBase {
             xstream.omitField(GroupData.class,"id");
 
             List<GroupData> groups = (List<GroupData>) xstream.fromXML(xml);
+            list = groups.stream()
+                    .map( (g) -> new Object[]{g} )
+                    .collect(Collectors.toList());
+
+        }else if(format.equals("json")) {
+
+            String json = "";
+
+            while (line != null) {
+                json += line;
+                line = reader.readLine();
+            }
+
+            Gson gson = new Gson();
+            List<GroupData> groups = gson.fromJson(json, new TypeToken<List<GroupData>>(){}.getType());
             list = groups.stream()
                     .map( (g) -> new Object[]{g} )
                     .collect(Collectors.toList());

@@ -1,12 +1,15 @@
 package ru.isdev.addressbook.model;
 
+import com.google.gson.annotations.Expose;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
 import java.util.Objects;
 
 public class GroupData {
-    private int id = 0;
-    private String name;
-    private String header;
-    private String footer;
+    @XStreamOmitField private int id = 0;
+    @Expose private String name;
+    @Expose private String header;
+    @Expose private String footer;
 
     @Override
     public boolean equals(Object o) {
