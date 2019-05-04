@@ -5,6 +5,8 @@ import org.testng.annotations.Test;
 import ru.isdev.addressbook.model.ContactData;
 import ru.isdev.addressbook.model.Contacts;
 
+import java.io.File;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.Assert.assertEquals;
@@ -17,8 +19,10 @@ public class ContactCreationTests extends TestBase {
         app.goTo().theContactPage();
     }
 
-    @Test
-    public void testContactCreationTests() throws Exception {
+    @Test()
+    public void testContactCreation() throws Exception {
+
+        File photo = new File("src/test/resources/avatar.png");
 
         Contacts before = app.contact().all();
 
@@ -46,7 +50,9 @@ public class ContactCreationTests extends TestBase {
                 .withAyear("2010")
                 .withAddress2("secaddress1\nsecaddress2\nsecaddress3")
                 .withPhone2("sechome")
-                .withNotes("note1\nnote2\nnote3");
+                .withNotes("note1\nnote2\nnote3")
+                .withPhoto(photo)
+                ;
         app.contact().create(contact);
 
         Contacts after = app.contact().all();

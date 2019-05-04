@@ -1,5 +1,6 @@
 package ru.isdev.addressbook.model;
 
+import java.io.File;
 import java.util.Objects;
 
 public class ContactData {
@@ -30,6 +31,7 @@ public class ContactData {
     private String notes;
     private String phones;
     private String emails;
+    private File photo;
 
     @Override
     public String toString() {
@@ -161,6 +163,10 @@ public class ContactData {
 
     public String getPhones() {
         return phones;
+    }
+
+    public File getPhoto() {
+        return photo;
     }
 
     public ContactData withId(int id) {
@@ -295,6 +301,11 @@ public class ContactData {
 
     public ContactData withAllPhones(String phones) {
         this.phones = phones;
+        return this;
+    }
+
+    public ContactData withPhoto(File photo) {
+        this.photo = photo;
         return this;
     }
 
