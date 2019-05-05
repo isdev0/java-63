@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 public class ApplicationManger {
 
     private final String browser;
-    public final Properties properties;
+    private final Properties properties;
     public WebDriver wd;
 
     private SessionHelper sessionHelper;
@@ -83,10 +83,6 @@ public class ApplicationManger {
 
     public ContactHelper contact() {
         return contactHelper;
-    }
-
-    public Properties getProperties() {
-        return properties;
     }
 
 }
