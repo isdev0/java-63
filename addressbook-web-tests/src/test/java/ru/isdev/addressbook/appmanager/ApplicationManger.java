@@ -19,10 +19,11 @@ public class ApplicationManger {
     private final Properties properties;
     public WebDriver wd;
 
-    private SessionHelper sessionHelper;
+    private SessionHelper    sessionHelper;
     private NavigationHelper navigationHelper;
-    private ContactHelper contactHelper;
-    private GroupHelper groupHelper;
+    private ContactHelper    contactHelper;
+    private GroupHelper      groupHelper;
+    private DbHelper         dbHelper;
 
     public ApplicationManger(String browser){
         this.browser = browser;
@@ -30,6 +31,8 @@ public class ApplicationManger {
     }
 
     public void init() throws IOException {
+
+        dbHelper = new DbHelper();
 
         String target = System.getProperty("target","local");
         properties.load(
@@ -83,6 +86,10 @@ public class ApplicationManger {
 
     public ContactHelper contact() {
         return contactHelper;
+    }
+
+    public DbHelper db() {
+        return dbHelper;
     }
 
 }

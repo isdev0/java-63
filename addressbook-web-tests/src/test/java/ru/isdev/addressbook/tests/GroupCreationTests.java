@@ -3,8 +3,6 @@ package ru.isdev.addressbook.tests;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.thoughtworks.xstream.XStream;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -123,9 +121,9 @@ public class GroupCreationTests extends TestBase {
     @Test(dataProvider = "validGroups_JSON")
     public void testGroupCreation(GroupData group) throws Exception {
 
-        Groups before = app.group().all();
+        Groups before = app.db().groups();
         app.group().create(group);
-        Groups after = app.group().all();
+        Groups after = app.db().groups();
 
         assertThat(after.size(), equalTo(before.size() + 1));
         assertThat(after, equalTo(

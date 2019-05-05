@@ -14,13 +14,15 @@ public class GroupModificationTests extends TestBase {
     @BeforeMethod
     public void ensurePreconditions(){
         app.goTo().theGroupPage();
-        app.group().checkGroupPresence();
+        if(app.db().groups().size() == 0) {
+            app.group().create(new GroupData().withName("TestGroup1_name").withHeader("TestGroup1_header"));
+        }
     }
 
     @Test
     public void testGroupModification(){
 
-        Groups before = app.group().all();
+        Groups before = app.db().groups();
 
         GroupData modifiedGroup = before.iterator().next();
         GroupData group = new GroupData()
@@ -30,7 +32,7 @@ public class GroupModificationTests extends TestBase {
                 .withFooter("TestGroup1_Edit_footer");
         app.group().modify(group);
 
-        Groups after = app.group().all();
+        Groups after = app.db().groups();
 
         assertEquals(after.size(), before.size());
         assertThat(after, equalTo(before

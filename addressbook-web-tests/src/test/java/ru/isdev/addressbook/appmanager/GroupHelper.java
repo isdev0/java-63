@@ -69,12 +69,6 @@ public class GroupHelper extends HelperBase {
         returnToTheGroupPage();
     }
 
-    public void checkGroupPresence() {
-        if(all().size() == 0){
-            create(new GroupData().withName("TestGroup1_name").withHeader("TestGroup1_header"));
-        }
-    }
-
     public Groups all() {
         Groups groups = new Groups();
         List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
