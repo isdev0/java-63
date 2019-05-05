@@ -3,40 +3,43 @@ package ru.isdev.addressbook.model;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
 import java.util.Objects;
 
 @XStreamAlias("contact")
+@Entity @Table(name = "addressbook")
 public class ContactData {
-    @XStreamOmitField private int id = 0;
-    @Expose private String fname;
-    @Expose private String mname;
-    @Expose private String lname;
-    @Expose private String nname;
-    @Expose private String title;
-    @Expose private String company;
-    @Expose private String address;
-    @Expose private String thome;
-    @Expose private String tmobile;
-    @Expose private String twork;
-    @Expose private String tfax;
-    @Expose private String email;
-    @Expose private String email2;
-    @Expose private String email3;
-    @Expose private String hpage;
-    @Expose private String bday;
-    @Expose private String bmonth;
-    @Expose private String byear;
-    @Expose private String aday;
-    @Expose private String amonth;
-    @Expose private String ayear;
-    @Expose private String address2;
-    @Expose private String phone2;
-    @Expose private String notes;
-    @Expose private String phones;
-    @Expose private String emails;
-    @Expose private File photo;
+    @XStreamOmitField @Id @Column(name = "id")                 private int id = 0;
+    @Expose @Column(name = "firstname")                        private String fname;
+    @Expose @Column(name = "middlename")                       private String mname;
+    @Expose @Column(name = "lastname")                         private String lname;
+    @Expose @Column(name = "nickname")                         private String nname;
+    @Expose @Column(name = "title")                            private String title;
+    @Expose @Column(name = "company")                          private String company;
+    @Expose @Column(name = "address")  @Type(type="text")      private String address;
+    @Expose @Column(name = "home")     @Type(type="text")      private String thome;
+    @Expose @Column(name = "mobile")   @Type(type="text")      private String tmobile;
+    @Expose @Column(name = "work")     @Type(type="text")      private String twork;
+    @Expose @Column(name = "fax")      @Type(type="text")      private String tfax;
+    @Expose @Column(name = "email")    @Type(type="text")      private String email;
+    @Expose @Column(name = "email2")   @Type(type="text")      private String email2;
+    @Expose @Column(name = "email3")   @Type(type="text")      private String email3;
+    @Expose @Column(name = "homepage") @Type(type="text")      private String hpage;
+    @Expose @Column(name = "bday", columnDefinition="TINYINT") private String bday;
+    @Expose @Column(name = "bmonth")                           private String bmonth;
+    @Expose @Column(name = "byear")                            private String byear;
+    @Expose @Column(name = "aday", columnDefinition="TINYINT") private String aday;
+    @Expose @Column(name = "amonth")                           private String amonth;
+    @Expose @Column(name = "ayear")                            private String ayear;
+    @Expose @Column(name = "address2") @Type(type="text")      private String address2;
+    @Expose @Column(name = "phone2")   @Type(type="text")      private String phone2;
+    @Expose @Column(name = "notes")    @Type(type="text")      private String notes;
+    @Expose @Column(name = "photo")    @Type(type="text")      private String photo;
+    @Expose @Transient                                         private String phones;
+    @Expose @Transient                                         private String emails;
 
     @Override
     public String toString() {
@@ -171,7 +174,7 @@ public class ContactData {
     }
 
     public File getPhoto() {
-        return photo;
+        return new File(photo);
     }
 
     public ContactData withId(int id) {
@@ -310,7 +313,7 @@ public class ContactData {
     }
 
     public ContactData withPhoto(File photo) {
-        this.photo = photo;
+        this.photo = photo.getAbsolutePath();
         return this;
     }
 
