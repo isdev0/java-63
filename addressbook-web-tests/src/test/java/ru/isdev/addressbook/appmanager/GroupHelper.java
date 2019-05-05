@@ -80,4 +80,11 @@ public class GroupHelper extends HelperBase {
         return groups;
     }
 
+    public void createDefaultGroup() {
+        create(new GroupData()
+                .withName("TestGroup_name_default")
+                .withHeader("TestGroup_header_default")
+                .withFooter("TestGroup_footer_default")
+        );
+    }
 }

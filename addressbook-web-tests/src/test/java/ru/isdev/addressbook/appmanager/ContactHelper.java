@@ -80,36 +80,34 @@ public class ContactHelper extends HelperBase {
         click(By.xpath("(//input[@name='update'])[2]"));
     }
 
-    public void checkContactPresence() {
-        if(all().size() == 0){
-            create(
-                    new ContactData()
-                            .withFname("fname_default")
-                            .withMname("mname_default")
-                            .withLname("lname_default")
-                            .withNname("nname_default")
-                            .withTitle("title_default")
-                            .withCompany("company_default")
-                            .withAddress("address1_default\naddress2_default\naddress3_default")
-                            .withThome("thome_default")
-                            .withTmobile("tmobile_default")
-                            .withTwork("twork_default")
-                            .withTfax("tfax_default")
-                            .withEmail("email1_default")
-                            .withEmail2("email2_default")
-                            .withEmail3("email3_default")
-                            .withHpage("hpage_default")
-                            .withBday("1")
-                            .withBmonth("January")
-                            .withByear("2001")
-                            .withAday("2")
-                            .withAmonth("January")
-                            .withAyear("2002")
-                            .withAddress2("secaddress1_default\nsecaddress2_default\nsecaddress3_default")
-                            .withPhone2("sechome_default")
-                            .withNotes("note1_default\nnote2_default\nnote3_default")
-            );
-        }
+    public void createDefaultContact() {
+        create(
+                new ContactData()
+                        .withFname("fname_default")
+                        .withMname("mname_default")
+                        .withLname("lname_default")
+                        .withNname("nname_default")
+                        .withTitle("title_default")
+                        .withCompany("company_default")
+                        .withAddress("address1_default\naddress2_default\naddress3_default")
+                        .withThome("thome_default")
+                        .withTmobile("tmobile_default")
+                        .withTwork("twork_default")
+                        .withTfax("tfax_default")
+                        .withEmail("email1_default")
+                        .withEmail2("email2_default")
+                        .withEmail3("email3_default")
+                        .withHpage("hpage_default")
+                        .withBday("1")
+                        .withBmonth("January")
+                        .withByear("2001")
+                        .withAday("2")
+                        .withAmonth("January")
+                        .withAyear("2002")
+                        .withAddress2("secaddress1_default\nsecaddress2_default\nsecaddress3_default")
+                        .withPhone2("sechome_default")
+                        .withNotes("note1_default\nnote2_default\nnote3_default")
+        );
     }
 
     public void create(ContactData contact) {
