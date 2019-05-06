@@ -37,7 +37,7 @@ public class ContactData {
     @Expose @Column(name = "address2") @Type(type="text")      private String address2;
     @Expose @Column(name = "phone2")   @Type(type="text")      private String phone2;
     @Expose @Column(name = "notes")    @Type(type="text")      private String notes;
-    @Expose @Column(name = "photo")    @Type(type="text")      private String photo;
+    @Expose @Transient                                         private String photo;
     @Expose @Transient                                         private String phones;
     @Expose @Transient                                         private String emails;
 
@@ -48,21 +48,6 @@ public class ContactData {
                 ", fname='" + fname + '\'' +
                 ", lname='" + lname + '\'' +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ContactData that = (ContactData) o;
-        return id == that.id &&
-                Objects.equals(fname, that.fname) &&
-                Objects.equals(lname, that.lname);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, fname, lname);
     }
 
     public int getId() {
@@ -174,7 +159,11 @@ public class ContactData {
     }
 
     public File getPhoto() {
-        return new File(photo);
+        if(photo != null) {
+            return new File(photo);
+        }else{
+            return null;
+        }
     }
 
     public ContactData withId(int id) {
@@ -195,6 +184,42 @@ public class ContactData {
     public ContactData withMname(String mname) {
         this.mname = mname;
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ContactData that = (ContactData) o;
+        return id == that.id &&
+                Objects.equals(fname, that.fname) &&
+                Objects.equals(mname, that.mname) &&
+                Objects.equals(lname, that.lname) &&
+                Objects.equals(nname, that.nname) &&
+                Objects.equals(title, that.title) &&
+                Objects.equals(company, that.company) &&
+                Objects.equals(address, that.address) &&
+                Objects.equals(thome, that.thome) &&
+                Objects.equals(tmobile, that.tmobile) &&
+                Objects.equals(twork, that.twork) &&
+                Objects.equals(tfax, that.tfax) &&
+                Objects.equals(email, that.email) &&
+                Objects.equals(email2, that.email2) &&
+                Objects.equals(email3, that.email3) &&
+                Objects.equals(hpage, that.hpage) &&
+                Objects.equals(bday, that.bday) &&
+                Objects.equals(bmonth, that.bmonth) &&
+                Objects.equals(byear, that.byear) &&
+                Objects.equals(aday, that.aday) &&
+                Objects.equals(ayear, that.ayear) &&
+                Objects.equals(address2, that.address2) &&
+                Objects.equals(phone2, that.phone2) &&
+                Objects.equals(notes, that.notes);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, fname, mname, lname, nname, title, company, address, thome, tmobile, twork, tfax, email, email2, email3, hpage, bday, bmonth, byear, aday, ayear, address2, phone2, notes);
     }
 
     public ContactData withNname(String nname) {
@@ -313,7 +338,7 @@ public class ContactData {
     }
 
     public ContactData withPhoto(File photo) {
-        this.photo = photo.getAbsolutePath();
+        this.photo = photo.getPath();
         return this;
     }
 

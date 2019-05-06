@@ -34,7 +34,7 @@ public class ContactModificationTests extends TestBase {
                 .withNname("nname_edited")
                 .withTitle("title_edited")
                 .withCompany("company_edited")
-                .withAddress("address1_edited\naddress2_edited\naddress3_edited")
+                .withAddress("address1_edited\r\naddress2_edited\r\naddress3_edited")
                 .withThome("thome_edited")
                 .withTmobile("tmobile_edited")
                 .withTwork("twork_edited")
@@ -49,19 +49,16 @@ public class ContactModificationTests extends TestBase {
                 .withAday("12")
                 .withAmonth("December")
                 .withAyear("2012")
-                .withAddress2("secaddress1_edited\nsecaddress2_edited\nsecaddress3_edited")
+                .withAddress2("secaddress1_edited\r\nsecaddress2_edited\r\nsecaddress3_edited")
                 .withPhone2("sechome_edited")
-                .withNotes("note1_edited\nnote2_edited\nnote3_edited");
+                .withNotes("note1_edited\r\nnote2_edited\r\nnote3_edited");
         app.contact().modify(contact);
 
         Contacts after = app.db().contacts();
+        Contacts before_after = before.without(modifiedContact).withAdded(contact);
 
         assertEquals(after.size(), before.size());
-        assertThat(after, equalTo( before
-                .without(modifiedContact)
-                .withAdded(contact)
-                )
-        );
+        assertThat(after, equalTo(before_after));
 
     }
 

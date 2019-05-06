@@ -89,14 +89,12 @@ public class ContactCreationTests extends TestBase {
     @Test(dataProvider = "validContacts_JSON")
     public void testContactCreation(ContactData contact) throws Exception {
 
-        File photo = new File("src/test/resources/avatar.png");
+        Contacts before = app.db().contacts();
 
-        Contacts before = app.contact().all();
-
-        contact.withPhoto(photo);
+        contact.withPhoto(new File("src/test/resources/avatar.png"));
         app.contact().create(contact);
 
-        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
 
         assertEquals(after.size(), before.size() + 1);
         assertThat(after, equalTo(

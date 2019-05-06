@@ -6,7 +6,7 @@
     "nname": "nname_default1",
     "title": "title_default1",
     "company": "company_default1",
-    "address": "address1_default1\naddress2_default1\naddress3_default1",
+    "address": "address1_default1\r\naddress2_default1\r\naddress3_default1",
     "thome": "thome_default1",
     "tmobile": "tmobile_default1",
     "twork": "twork_default1",
@@ -21,9 +21,9 @@
     "aday": "2",
     "amonth": "January",
     "ayear": "2002",
-    "address2": "secaddress1_default1\nsecaddress2_default1\nsecaddress3_default1",
+    "address2": "secaddress1_default1\r\nsecaddress2_default1\r\nsecaddress3_default1",
     "phone2": "sechome_default1",
-    "notes": "note1_default1\nnote2_default1\nnote3_default1"
+    "notes": "note1_default1\r\nnote2_default1\r\nnote3_default1"
   },
   {
     "fname": "fname_default2",
@@ -32,7 +32,7 @@
     "nname": "nname_default2",
     "title": "title_default2",
     "company": "company_default2",
-    "address": "address1_default2\naddress2_default2\naddress3_default2",
+    "address": "address1_default2\r\naddress2_default2\r\naddress3_default2",
     "thome": "thome_default2",
     "tmobile": "tmobile_default2",
     "twork": "twork_default2",
@@ -47,8 +47,8 @@
     "aday": "2",
     "amonth": "January",
     "ayear": "2002",
-    "address2": "secaddress1_default2\nsecaddress2_default2\nsecaddress3_default2",
+    "address2": "secaddress1_default2\r\nsecaddress2_default2\r\nsecaddress3_default2",
     "phone2": "sechome_default2",
-    "notes": "note1_default2\nnote2_default2\nnote3_default2"
+    "notes": "note1_default2\r\nnote2_default2\r\nnote3_default2"
   }
 ]

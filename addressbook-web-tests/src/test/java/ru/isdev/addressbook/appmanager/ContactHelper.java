@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import ru.isdev.addressbook.model.ContactData;
 import ru.isdev.addressbook.model.Contacts;
 
+import java.io.File;
 import java.util.List;
 
 public class ContactHelper extends HelperBase {
@@ -81,6 +82,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public void createDefaultContact() {
+        File photo = new File("src/test/resources/avatar.png");
         create(
                 new ContactData()
                         .withFname("fname_default")
@@ -89,7 +91,7 @@ public class ContactHelper extends HelperBase {
                         .withNname("nname_default")
                         .withTitle("title_default")
                         .withCompany("company_default")
-                        .withAddress("address1_default\naddress2_default\naddress3_default")
+                        .withAddress("address1_default\r\naddress2_default\r\naddress3_default")
                         .withThome("thome_default")
                         .withTmobile("tmobile_default")
                         .withTwork("twork_default")
@@ -104,9 +106,10 @@ public class ContactHelper extends HelperBase {
                         .withAday("2")
                         .withAmonth("January")
                         .withAyear("2002")
-                        .withAddress2("secaddress1_default\nsecaddress2_default\nsecaddress3_default")
+                        .withAddress2("secaddress1_default\r\nsecaddress2_default\r\nsecaddress3_default")
                         .withPhone2("sechome_default")
-                        .withNotes("note1_default\nnote2_default\nnote3_default")
+                        .withNotes("note1_default\r\nnote2_default\r\nnote3_default")
+                        .withPhoto(photo)
         );
     }
 
