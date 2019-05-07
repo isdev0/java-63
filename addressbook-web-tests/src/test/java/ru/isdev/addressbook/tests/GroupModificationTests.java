@@ -40,6 +40,7 @@ public class GroupModificationTests extends TestBase {
                 .withAdded(group)
                 )
         );
-    }
 
+        verifyGroupListInUI();
+    }
 }
