@@ -8,6 +8,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.isdev.addressbook.model.ContactData;
 import ru.isdev.addressbook.model.Contacts;
+import ru.isdev.addressbook.model.Groups;
 
 import java.io.*;
 import java.util.Iterator;
@@ -90,8 +91,12 @@ public class ContactCreationTests extends TestBase {
     public void testContactCreation(ContactData contact) throws Exception {
 
         Contacts before = app.db().contacts();
+        Groups groups = app.db().groups();
 
-        contact.withPhoto(new File("src/test/resources/avatar.png"));
+        contact
+                .withPhoto(new File("src/test/resources/avatar.png"))
+                .inGroup(groups.iterator().next());
+
         app.contact().create(contact);
 
         Contacts after = app.db().contacts();

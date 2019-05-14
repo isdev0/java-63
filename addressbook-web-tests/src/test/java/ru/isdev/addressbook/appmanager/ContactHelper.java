@@ -3,8 +3,11 @@ package ru.isdev.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 import ru.isdev.addressbook.model.ContactData;
 import ru.isdev.addressbook.model.Contacts;
+import ru.isdev.addressbook.model.GroupData;
 
 import java.io.File;
 import java.util.List;
@@ -15,7 +18,7 @@ public class ContactHelper extends HelperBase {
         super(wd);
     }
 
-    public void fillContactForm(ContactData contactData) {
+    public void fillContactForm(ContactData contactData, boolean creation) {
         type(By.name("firstname"),contactData.getFname());
         type(By.name("middlename"),contactData.getMname());
         type(By.name("lastname"),contactData.getLname());
@@ -41,6 +44,14 @@ public class ContactHelper extends HelperBase {
         type(By.name("phone2"),contactData.getPhone2());
         type(By.name("notes"),contactData.getNotes());
         attach(By.name("photo"),contactData.getPhoto());
+
+        if(creation){
+            if(contactData.getGroups().size() > 0){
+                Assert.assertTrue(contactData.getGroups().size() == 1);
+                select("new_group", contactData.getGroups().iterator().next().getName() );
+            }
+        }
+
     }
 
     public void initContactCreation() {
@@ -115,13 +126,13 @@ public class ContactHelper extends HelperBase {
 
     public void create(ContactData contact) {
         initContactCreation();
-        fillContactForm(contact);
+        fillContactForm(contact, true);
         submitContactCreation();
     }
 
     public void modify(ContactData contact) {
         initContactModificationById(contact.getId());
-        fillContactForm(contact);
+        fillContactForm(contact, false);
         submitContactModification();
     }
 
@@ -180,5 +191,10 @@ public class ContactHelper extends HelperBase {
                 .withEmail(email)
                 .withEmail2(email2)
                 .withEmail3(email3);
+    }
+
+    public void addToGroup(GroupData group) {
+        select("to_group", group.getName() );
+        click(By.name("add"));
     }
 }

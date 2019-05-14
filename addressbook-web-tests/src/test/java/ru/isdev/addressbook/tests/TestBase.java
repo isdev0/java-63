@@ -24,7 +24,7 @@ public class TestBase {
     Logger logger = LoggerFactory.getLogger(TestBase.class);
 
     protected static final ApplicationManger app = new ApplicationManger(
-            System.getProperty("browser", BrowserType.CHROME)
+            System.getProperty("browser", BrowserType.FIREFOX)
     );
 
     @BeforeSuite(alwaysRun = true)
