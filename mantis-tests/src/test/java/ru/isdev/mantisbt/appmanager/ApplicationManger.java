@@ -17,7 +17,8 @@ public class ApplicationManger {
 
     private final String browser;
     private final Properties properties;
-    public WebDriver wd;
+    private WebDriver wd;
+    private RegistrationHelper registrationHelper;
 
     public ApplicationManger(String browser){
         this.browser = browser;
@@ -25,7 +26,6 @@ public class ApplicationManger {
     }
 
     public void init() throws IOException {
-
         String target = System.getProperty("target","local");
         properties.load(
                 new FileReader(
@@ -34,26 +34,12 @@ public class ApplicationManger {
                         )
                 )
         );
-
-        if(browser.equals(BrowserType.FIREFOX)){
-            wd = new FirefoxDriver();
-
-        }else if(browser.equals(BrowserType.CHROME)){
-            wd = new ChromeDriver();
-
-        }else if(browser.equals(BrowserType.EDGE)){
-            wd = new EdgeDriver();
-
-        }else if(browser.equals(BrowserType.IE)){
-            wd = new InternetExplorerDriver();
-        }
-
-        wd.manage().timeouts().implicitlyWait(Integer.parseInt(properties.getProperty("wd.implicitlyWait")), TimeUnit.SECONDS);
-
     }
 
     public void stop() {
-        wd.quit();
+        if(wd != null) {
+            wd.quit();
+        }
     }
 
     public HttpSession newSession() {
@@ -62,5 +48,34 @@ public class ApplicationManger {
 
     public String getProperty(String key) {
         return properties.getProperty(key);
+    }
+
+    public RegistrationHelper registration() {
+        if(registrationHelper == null) {
+            registrationHelper = new RegistrationHelper(this);
+        }
+        return registrationHelper;
+    }
+
+    public WebDriver getDriver() {
+        if(wd == null) {
+
+            if(browser.equals(BrowserType.FIREFOX)){
+                wd = new FirefoxDriver();
+
+            }else if(browser.equals(BrowserType.CHROME)){
+                wd = new ChromeDriver();
+
+            }else if(browser.equals(BrowserType.EDGE)){
+                wd = new EdgeDriver();
+
+            }else if(browser.equals(BrowserType.IE)){
+                wd = new InternetExplorerDriver();
+            }
+
+            wd.manage().timeouts().implicitlyWait(Integer.parseInt(properties.getProperty("wd.implicitlyWait")), TimeUnit.SECONDS);
+        }
+
+        return wd;
     }
 }
