@@ -24,4 +24,25 @@ public class RegistrationHelper extends HelperBase {
 
         click(By.cssSelector("input[value='Update User']"));
     }
+
+    public void logon(String username, String password) {
+
+        wd.get(app.getProperty("web.baseUrl") + "/login_page.php");
+
+        type(By.name("username"), username);
+        type(By.name("password"), password);
+
+        click(By.cssSelector("input[value='Login']"));
+    }
+
+    public void resetUserPassword(String username) throws InterruptedException {
+
+        wd.get(app.getProperty("web.baseUrl") + "/manage_user_page.php");
+
+        type(By.name("username"), username);
+
+        click(By.cssSelector("input[value='Manage User']"));
+        click(By.cssSelector("input[value='Reset Password']"));
+    }
+
 }
