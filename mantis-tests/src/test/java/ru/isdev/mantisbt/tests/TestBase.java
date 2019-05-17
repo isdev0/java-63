@@ -3,11 +3,11 @@ package ru.isdev.mantisbt.tests;
 import org.openqa.selenium.remote.BrowserType;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
-import ru.isdev.mantisbt.appmanager.ApplicationManger;
+import ru.isdev.mantisbt.appmanager.ApplicationManager;
 
 public class TestBase {
 
-    protected static final ApplicationManger app = new ApplicationManger(
+    protected static final ApplicationManager app = new ApplicationManager(
             System.getProperty("browser", BrowserType.FIREFOX)
     );
 

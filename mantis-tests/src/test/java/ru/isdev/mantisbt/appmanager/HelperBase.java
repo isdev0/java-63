@@ -10,10 +10,10 @@ import java.io.File;
 
 public class HelperBase {
 
-    protected ApplicationManger app;
+    protected ApplicationManager app;
     protected WebDriver wd;
 
-    public HelperBase(ApplicationManger app) {
+    public HelperBase(ApplicationManager app) {
         this.app = app;
         this.wd = app.getDriver();
     }

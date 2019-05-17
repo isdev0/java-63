@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
-public class ApplicationManger {
+public class ApplicationManager {
 
     private final String browser;
     private final Properties properties;
@@ -21,8 +21,9 @@ public class ApplicationManger {
     private RegistrationHelper registrationHelper;
     private FtpHelper ftp;
     private MailHelper mailHelper;
+    private JamesHelper jamesHelper;
 
-    public ApplicationManger(String browser){
+    public ApplicationManager(String browser){
         this.browser = browser;
         properties = new Properties();
     }
@@ -94,4 +95,12 @@ public class ApplicationManger {
         }
         return mailHelper;
     }
+
+    public JamesHelper james() {
+        if (jamesHelper == null) {
+            jamesHelper = new JamesHelper(this);
+        }
+        return jamesHelper;
+    }
+
 }
