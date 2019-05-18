@@ -18,6 +18,7 @@ public class RegistrationTests extends TestBase {
     public void startMailServer() {
         app.mail().start();
     }
+
     @Test
     public void testRegistration() throws IOException, MessagingException {
 

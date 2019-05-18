@@ -163,7 +163,7 @@ public class JamesHelper {
 
     private MailMessage toModelMail(Message m) {
         try {
-            return new MailMessage(m.getAllRecipients()[0].toString(), (String) m.getContent());
+            return new MailMessage(m.getAllRecipients()[0].toString(), m.getSubject(), (String) m.getContent());
         }
         catch (Exception e) {
             e.printStackTrace();
