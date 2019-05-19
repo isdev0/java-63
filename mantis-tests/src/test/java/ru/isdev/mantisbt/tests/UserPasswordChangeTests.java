@@ -4,6 +4,8 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.isdev.mantisbt.model.MailMessage;
+import ru.isdev.mantisbt.model.UserData;
+import ru.isdev.mantisbt.model.Users;
 import ru.lanwen.verbalregex.VerbalExpression;
 
 import javax.mail.MessagingException;
@@ -24,23 +26,27 @@ public class UserPasswordChangeTests extends TestBase {
 
         long now = System.currentTimeMillis();
 
-        String email = String.format("user%s@localhost", now);
-        String user = String.format("user%s", now);
-        String password = "password";
+//        String email = String.format("user%s@localhost", now);
+//        String user = String.format("user%s", now);
+//        String password = "password";
         String newpassword = String.format("%s", now);
 
-        app.james().createUser(user,password);
-        app.registration().start(user, email);
+//        app.james().createUser(user,password);
+//        app.registration().start(user, email);
 
-        List<MailMessage> mailMessages = app.mail().waitForMail(2, 10000);
+//        List<MailMessage> mailMessages = app.mail().waitForMail(2, 10000);
+//
+//        app.registration().finish(findConfirmationLink(mailMessages, email, app.getProperty("mantisbt.registration")), password);
+//        app.registration().logout();
 
-        app.registration().finish(findConfirmationLink(mailMessages, email, app.getProperty("mantisbt.registration")), password);
-        app.registration().logout();
+        UserData dbuser = app.user().all().iterator().next();
+        String user = dbuser.getUsername();
+        String email = dbuser.getEmail();
 
         app.registration().logon(app.getProperty("web.adminLogin"), app.getProperty("web.adminPass"));
         app.registration().resetUserPassword(user);
 
-        mailMessages = app.mail().waitForMail(1, 10000);
+        List<MailMessage> mailMessages = app.mail().waitForMail(1, 10000);
         String confirmUrl = findConfirmationLink(mailMessages, email, app.getProperty("mantisbt.passwordreset"));
         app.registration().finish(confirmUrl, newpassword);
 
