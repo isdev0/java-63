@@ -16,6 +16,11 @@ dependencies {
     implementation 'org.hibernate:hibernate-core:5.3.10.Final'
 }
 
+
+test {
+    useTestNG()
+}
+
 task testGroups(type: Test){
     
     useTestNG{
